@@ -10,40 +10,40 @@ const router = createRouter({
       name: 'home',
       component: HomeView,
       meta: {
-        title: '首页',
-      },
+        title: '首页'
+      }
     },
     {
       path: '/task/generating',
       name: 'task-generating',
       component: () => import('@/views/GeneratingView.vue'),
       meta: {
-        title: '生成数据',
-      },
+        title: '生成数据'
+      }
     },
     {
       path: '/task/template',
       name: 'task-template',
       component: () => import('@/views/GenerationTemplateView.vue'),
       meta: {
-        title: '模板',
-      },
+        title: '模板'
+      }
     },
     {
       path: '/settings/system',
       name: 'settings-system',
       component: () => import('@/views/SettingsSystemView.vue'),
       meta: {
-        title: '系统设置',
-      },
+        title: '系统设置'
+      }
     },
     {
       path: '/settings/db-config',
       name: 'settings-db-config',
       component: () => import('@/views/SettingsDbConfigView.vue'),
       meta: {
-        title: '数据源设置',
-      },
+        title: '数据源设置'
+      }
     },
     {
       path: '/about',
@@ -53,21 +53,25 @@ const router = createRouter({
       // which is lazy-loaded when the route is visited.
       component: () => import('@/views/AboutView.vue'),
       meta: {
-        title: '关于',
-      },
+        title: '关于'
+      }
     }
   ]
 })
 
 router.beforeEach((to, from) => {
-  const { name, path, meta: { title }} = to
+  const {
+    name,
+    path,
+    meta: { title }
+  } = to
 
   const routerTabsStore = useRouterTabsStore()
 
   routerTabsStore.add({
     name: (name || title) as unknown as string,
     path,
-    title: title as unknown as string 
+    title: title as unknown as string
   })
 })
 

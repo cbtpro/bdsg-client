@@ -15,16 +15,19 @@
 import { ref } from 'vue'
 import { defineStore } from 'pinia'
 
-export const useMainMenuStore = defineStore('main-menu', () => {
-  const openKeys = ref<string[]>([''])
-  const selectedKeys = ref<string[]>(['home'])
+export const useMainMenuStore = defineStore(
+  'main-menu',
+  () => {
+    const openKeys = ref<string[]>([''])
+    const selectedKeys = ref<string[]>(['home'])
 
-  const switchMenuKeysHandle = (key: string) => {
-    selectedKeys.value = [key]
+    const switchMenuKeysHandle = (key: string) => {
+      selectedKeys.value = [key]
+    }
+
+    return { openKeys, selectedKeys, switchMenuKeysHandle }
+  },
+  {
+    persist: true
   }
-
-  return { openKeys, selectedKeys, switchMenuKeysHandle }
-},
-{
-  persist: true,
-})
+)

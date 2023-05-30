@@ -18,22 +18,21 @@
 import { useRouter } from 'vue-router'
 import { useRouterTabsStore } from '@/stores/router-tabs'
 import { useMainMenuStore } from '@/stores/main-menu'
-import type { Key } from 'ant-design-vue/es/table/interface';
+import type { Key } from 'ant-design-vue/es/table/interface'
 
 const routerTabsStore = useRouterTabsStore()
 
 const router = useRouter()
 const mainMenuStore = useMainMenuStore()
 const onTabChangeHandle = (key: Key | string) => {
-  router.push({
-    path: key as string
-  })
-  .then(() => {
-    mainMenuStore.switchMenuKeysHandle(key as string)
-  })
-
+  router
+    .push({
+      path: key as string
+    })
+    .then(() => {
+      mainMenuStore.switchMenuKeysHandle(key as string)
+    })
 }
-
 </script>
 
 <template>

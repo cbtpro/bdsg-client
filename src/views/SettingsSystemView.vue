@@ -17,7 +17,7 @@
 <script setup lang="ts">
 import { nextTick, reactive } from 'vue'
 import type { UnwrapRef } from 'vue'
-import { useRoute, useRouter } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router'
 import { RouterMode } from '@/constants/settings-system'
 import { useSettingsSystemStore } from '@/stores/settings-system'
 import { useRouterTabsStore } from '@/stores/router-tabs'
@@ -29,30 +29,32 @@ interface FormState {
 const store = useSettingsSystemStore()
 
 const formState: UnwrapRef<FormState> = reactive({
-  routerMode: store.routerMode,
+  routerMode: store.routerMode
 })
 
-const route = useRoute();
-const router = useRouter();
+const route = useRoute()
+const router = useRouter()
 
 const routerTabsStore = useRouterTabsStore()
 
 const onRouterModeChange = () => {
   store.switchRouterModeHandler()
-  const { name, path, meta: { title } } = route
+  const {
+    name,
+    path,
+    meta: { title }
+  } = route
   routerTabsStore.add({
     name: (name || title) as unknown as string,
     path,
-    title: title as unknown as string 
+    title: title as unknown as string
   })
   nextTick(() => {
-    router.push(route)
-      .then(() => {
-        routerTabsStore.activeKey = path
-      });
+    router.push(route).then(() => {
+      routerTabsStore.activeKey = path
+    })
   })
 }
-
 </script>
 
 <template>
@@ -62,10 +64,7 @@ const onRouterModeChange = () => {
   </a-breadcrumb>
   <a-form layout="horizontal" :model="formState">
     <a-form-item label="路由模式">
-      <a-radio-group
-        v-model:value="formState.routerMode"
-        @change="onRouterModeChange"
-      >
+      <a-radio-group v-model:value="formState.routerMode" @change="onRouterModeChange">
         <a-radio-button :value="RouterMode.SinglePage">单页面</a-radio-button>
         <a-radio-button :value="RouterMode.TabsPage">多页面</a-radio-button>
       </a-radio-group>

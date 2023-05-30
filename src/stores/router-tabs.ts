@@ -16,60 +16,63 @@ import { ref } from 'vue'
 import { defineStore } from 'pinia'
 import { useRouter } from 'vue-router'
 
-export const useRouterTabsStore = defineStore('router-tabs-store', () => {
-  const panes = ref<PageTabsItem[]>([])
+export const useRouterTabsStore = defineStore(
+  'router-tabs-store',
+  () => {
+    const panes = ref<PageTabsItem[]>([])
 
-  const activeKey = ref<string | undefined>(panes.value[0]?.key)
+    const activeKey = ref<string | undefined>(panes.value[0]?.key)
 
-  const add = (option: { name: string; path: string; title: string }) => {
-    const { name, path, title } = option
-    const existTabIndex = panes.value.findIndex((pane) => pane.path === path)
-    if (existTabIndex === -1) {
-      panes.value.push({
-        title: title || 'UnTitle',
-        path,
-        key: path,
-        name
-      })
-    }
-    activeKey.value = path
-  }
-
-  const router = useRouter()
-  const remove = (targetKey: string) => {
-    let lastIndex = 0
-    panes.value.forEach((pane, i) => {
-      if (pane.key === targetKey) {
-        lastIndex = i - 1
+    const add = (option: { name: string; path: string; title: string }) => {
+      const { name, path, title } = option
+      const existTabIndex = panes.value.findIndex((pane) => pane.path === path)
+      if (existTabIndex === -1) {
+        panes.value.push({
+          title: title || 'UnTitle',
+          path,
+          key: path,
+          name
+        })
       }
-    })
-    panes.value = panes.value.filter((pane) => pane.key !== targetKey)
-    if (panes.value.length && activeKey.value === targetKey) {
-      let panel
-      if (lastIndex >= 0) {
-        panel = panes.value[lastIndex]
-      } else {
-        panel = panes.value[0]
-      }
-      const { key, path } = panel
-      activeKey.value = key
-      router.push({
-        path,
-      })
+      activeKey.value = path
     }
-  }
 
-  const onEdit = (targetKey: string) => {
-    remove(targetKey as string)
+    const router = useRouter()
+    const remove = (targetKey: string) => {
+      let lastIndex = 0
+      panes.value.forEach((pane, i) => {
+        if (pane.key === targetKey) {
+          lastIndex = i - 1
+        }
+      })
+      panes.value = panes.value.filter((pane) => pane.key !== targetKey)
+      if (panes.value.length && activeKey.value === targetKey) {
+        let panel
+        if (lastIndex >= 0) {
+          panel = panes.value[lastIndex]
+        } else {
+          panel = panes.value[0]
+        }
+        const { key, path } = panel
+        activeKey.value = key
+        router.push({
+          path
+        })
+      }
+    }
+
+    const onEdit = (targetKey: string) => {
+      remove(targetKey as string)
+    }
+    return {
+      activeKey,
+      panes,
+      add,
+      remove,
+      onEdit
+    }
+  },
+  {
+    persist: true
   }
-  return {
-    activeKey,
-    panes,
-    add,
-    remove,
-    onEdit
-  }
-},
-{
-  persist: true,
-})
+)

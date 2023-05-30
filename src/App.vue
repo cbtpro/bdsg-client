@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import { useSettingsSystemStore } from '@/stores/settings-system';
+import { useSettingsSystemStore } from '@/stores/settings-system'
 
 const collapsed = ref<boolean>(false)
 

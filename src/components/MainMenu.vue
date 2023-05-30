@@ -21,13 +21,11 @@ import { useMainMenuStore } from '@/stores/main-menu'
 const router = useRouter()
 const navTo = (path: string) => {
   router.push({
-    path,
+    path
   })
 }
 
 const mainMenuStore = useMainMenuStore()
-
-
 </script>
 
 <template>
