@@ -30,6 +30,9 @@ onMounted(async () => {
     console.error('获取用户失败，error：', error)
   }
 })
+
+const value = ref('');
+
 </script>
 
 <template>
@@ -42,6 +45,7 @@ onMounted(async () => {
     </h3>
     {{ userInfo }}
     <a-button type="primary">Primary Button</a-button>
+    <a-button type="link" danger>Link</a-button>
   </div>
 </template>
 
