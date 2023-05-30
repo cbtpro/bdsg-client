@@ -28,7 +28,6 @@ declare module '@vue/runtime-core' {
     ATabPane: typeof import('ant-design-vue/es')['TabPane']
     ATabs: typeof import('ant-design-vue/es')['Tabs']
     DesktopOutlined: typeof import('@ant-design/icons-vue')['DesktopOutlined']
-    FileOutlined: typeof import('@ant-design/icons-vue')['FileOutlined']
     HelloWorld: typeof import('./components/HelloWorld.vue')['default']
     IconCommunity: typeof import('./components/icons/IconCommunity.vue')['default']
     IconDocumentation: typeof import('./components/icons/IconDocumentation.vue')['default']
@@ -42,9 +41,7 @@ declare module '@vue/runtime-core' {
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     SettingOutlined: typeof import('@ant-design/icons-vue')['SettingOutlined']
-    TeamOutlined: typeof import('@ant-design/icons-vue')['TeamOutlined']
     TheWelcome: typeof import('./components/TheWelcome.vue')['default']
-    UserOutlined: typeof import('@ant-design/icons-vue')['UserOutlined']
     WelcomeItem: typeof import('./components/WelcomeItem.vue')['default']
   }
 }
