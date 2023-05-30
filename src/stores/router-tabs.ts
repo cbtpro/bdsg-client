@@ -14,6 +14,7 @@
 
 import { ref } from 'vue'
 import { defineStore } from 'pinia'
+import { useRouter } from 'vue-router'
 
 export const useRouterTabsStore = defineStore('router-tabs-store', () => {
   const panes = ref<PageTabsItem[]>([])
@@ -34,6 +35,7 @@ export const useRouterTabsStore = defineStore('router-tabs-store', () => {
     activeKey.value = path
   }
 
+  const router = useRouter()
   const remove = (targetKey: string) => {
     let lastIndex = 0
     panes.value.forEach((pane, i) => {
@@ -43,13 +45,17 @@ export const useRouterTabsStore = defineStore('router-tabs-store', () => {
     })
     panes.value = panes.value.filter((pane) => pane.key !== targetKey)
     if (panes.value.length && activeKey.value === targetKey) {
-      let key = ''
+      let panel
       if (lastIndex >= 0) {
-        key = panes.value[lastIndex].key
+        panel = panes.value[lastIndex]
       } else {
-        key = panes.value[0].key
+        panel = panes.value[0]
       }
+      const { key, path } = panel
       activeKey.value = key
+      router.push({
+        path,
+      })
     }
   }
 
