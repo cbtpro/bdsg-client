@@ -27,11 +27,13 @@ const navTo = (path: string) => {
 
 const mainMenuStore = useMainMenuStore()
 
+
 </script>
 
 <template>
   <a-menu
     theme="light"
+    v-model:openKeys="mainMenuStore.openKeys"
     v-model:selectedKeys="mainMenuStore.selectedKeys"
     mode="inline"
   >
@@ -41,7 +43,7 @@ const mainMenuStore = useMainMenuStore()
         <span>首页</span>
       </span>
     </a-menu-item>
-    <a-sub-menu key="task">
+    <a-sub-menu key="/task">
       <template #title>
         <span>
           <desktop-outlined />
@@ -55,7 +57,7 @@ const mainMenuStore = useMainMenuStore()
         <span> 模板 </span>
       </a-menu-item>
     </a-sub-menu>
-    <a-sub-menu key="settings">
+    <a-sub-menu key="/settings">
       <template #title>
         <span>
           <setting-outlined />
