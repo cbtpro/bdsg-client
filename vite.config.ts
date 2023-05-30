@@ -9,6 +9,7 @@ import { AntDesignVueResolver } from 'unplugin-vue-components/resolvers'
 
 // https://vitejs.dev/config/
 const config: UserConfig = {
+  base: './',
   plugins: [
     vue(),
     vueJsx(),
@@ -17,7 +18,7 @@ const config: UserConfig = {
         AntDesignVueResolver({
           // 参数配置可参考：https://github.com/antfu/unplugin-vue-components/blob/main/src/core/resolvers/antdv.ts
           // 自动引入 ant-design/icons-vue中的图标，需要安装@ant-design/icons-vue
-          // resolveIcons: true
+          resolveIcons: true,
           /**
            * 一定要开启importStyle，否则会报错[plugin:vite:import-analysis] Failed to resolve import "ant-design-vue/es/button/style/css" from "src/components/HelloWorld.vue". Does the file exist?
            */
@@ -33,7 +34,8 @@ const config: UserConfig = {
       // }],
     })
   ],
-  build: {},
+  build: {
+  },
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url))

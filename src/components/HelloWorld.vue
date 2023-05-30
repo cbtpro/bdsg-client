@@ -31,8 +31,7 @@ onMounted(async () => {
   }
 })
 
-const value = ref('');
-
+const value = ref('')
 </script>
 
 <template>
