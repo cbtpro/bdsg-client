@@ -15,23 +15,15 @@
 import { ref, computed } from 'vue'
 import { defineStore } from 'pinia'
 import { RouterMode } from '@/constants/settings-system';
-import { getItem, setItem } from '@/utils/localstorage';
 
-const routeModeKey = 'router-mode'
 export const useSettingsSystemStore = defineStore('settings-system', () => {
 
   /** 路由模式 */
   const routerMode = ref<RouterMode>(RouterMode.SinglePage);
 
-  getItem(routeModeKey).then(mode => {
-    if (mode) {
-      routerMode.value = mode as RouterMode
-    }
-  })
-
   /** 路由模式是tabs */
   const isTabsMode = computed(() => routerMode.value === RouterMode.TabsPage)
-  
+
   /** 切换路由模式 */
   const switchRouterModeHandler = () => {
     if (routerMode.value === RouterMode.TabsPage) {
@@ -39,7 +31,6 @@ export const useSettingsSystemStore = defineStore('settings-system', () => {
     } else {
       routerMode.value = RouterMode.TabsPage
     }
-    setItem(routeModeKey, routerMode.value)
   }
 
   return {
@@ -47,4 +38,7 @@ export const useSettingsSystemStore = defineStore('settings-system', () => {
     isTabsMode,
     switchRouterModeHandler,
   }
+},
+{
+  persist: true,
 })

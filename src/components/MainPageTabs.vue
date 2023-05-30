@@ -31,6 +31,7 @@ const onTabChangeHandle = (key: Key | string) => {
   .then(() => {
     mainMenuStore.switchMenuKeysHandle(key as string)
   })
+
 }
 
 </script>

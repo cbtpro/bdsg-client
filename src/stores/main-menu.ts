@@ -14,23 +14,16 @@
 
 import { ref } from 'vue'
 import { defineStore } from 'pinia'
-import { getItem, setItem } from '@/utils/localstorage'
 
-const menuStoreageKey = 'menu-storage-key'
 export const useMainMenuStore = defineStore('main-menu', () => {
   const selectedKeys = ref<string[]>(['home'])
 
-  getItem(menuStoreageKey)
-    .then(value => {
-      if (value) {
-        selectedKeys.value = JSON.parse(value as string)
-      }
-    })
-
   const switchMenuKeysHandle = (key: string) => {
     selectedKeys.value = [key]
-    setItem(menuStoreageKey, JSON.stringify(selectedKeys.value))
   }
 
   return { selectedKeys, switchMenuKeysHandle }
+},
+{
+  persist: true,
 })

@@ -14,24 +14,11 @@
 
 import { ref } from 'vue'
 import { defineStore } from 'pinia'
-import { getItem, setItem } from '@/utils/localstorage'
 
-const routeTabsStorageKey = 'router-tabs-storage-key'
-const routerTabsPanelStorageKey = 'router-tabs-panel-storage-key'
 export const useRouterTabsStore = defineStore('router-tabs-store', () => {
   const panes = ref<PageTabsItem[]>([])
-  getItem(routerTabsPanelStorageKey).then(value => {
-    if (value) {
-      panes.value = JSON.parse(value as string)
-    }
-  })
 
   const activeKey = ref<string | undefined>(panes.value[0]?.key)
-  getItem(routeTabsStorageKey).then((value) => {
-    if (value) {
-      activeKey.value = value as string
-    }
-  })
 
   const add = (option: { name: string; path: string; title: string }) => {
     const { name, path, title } = option
@@ -43,10 +30,8 @@ export const useRouterTabsStore = defineStore('router-tabs-store', () => {
         key: path,
         name
       })
-      setItem(routerTabsPanelStorageKey, JSON.stringify(panes.value))
     }
     activeKey.value = path
-    setItem(routeTabsStorageKey, JSON.stringify(activeKey.value))
   }
 
   const remove = (targetKey: string) => {
@@ -58,13 +43,14 @@ export const useRouterTabsStore = defineStore('router-tabs-store', () => {
     })
     panes.value = panes.value.filter((pane) => pane.key !== targetKey)
     if (panes.value.length && activeKey.value === targetKey) {
+      let key = ''
       if (lastIndex >= 0) {
-        activeKey.value = panes.value[lastIndex].key
+        key = panes.value[lastIndex].key
       } else {
-        activeKey.value = panes.value[0].key
+        key = panes.value[0].key
       }
+      activeKey.value = key
     }
-    setItem(routeTabsStorageKey, activeKey.value)
   }
 
   const onEdit = (targetKey: string) => {
@@ -77,4 +63,7 @@ export const useRouterTabsStore = defineStore('router-tabs-store', () => {
     remove,
     onEdit
   }
+},
+{
+  persist: true,
 })
