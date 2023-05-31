@@ -19,7 +19,11 @@ const settingsSystemStore = useSettingsSystemStore()
       </a-layout-header>
       <a-layout-content>
         <div class="container">
-          <RouterView />
+          <RouterView v-slot="{ Component }">
+            <KeepAlive>
+              <component :is="Component" />
+            </KeepAlive>
+          </RouterView>
         </div>
       </a-layout-content>
       <a-layout-footer style="text-align: center">
