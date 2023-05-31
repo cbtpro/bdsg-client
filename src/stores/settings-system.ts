@@ -19,6 +19,8 @@ import { RouterMode } from '@/constants/settings-system'
 export const useSettingsSystemStore = defineStore(
   'settings-system',
   () => {
+    const collapsed = ref<boolean>(false)
+  
     /** 路由模式 */
     const routerMode = ref<RouterMode>(RouterMode.SinglePage)
 
@@ -35,6 +37,7 @@ export const useSettingsSystemStore = defineStore(
     }
 
     return {
+      collapsed,
       routerMode,
       isTabsMode,
       switchRouterModeHandler

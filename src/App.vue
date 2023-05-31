@@ -1,15 +1,12 @@
 <script setup lang="ts">
-import { ref } from 'vue'
 import { useSettingsSystemStore } from '@/stores/settings-system'
-
-const collapsed = ref<boolean>(false)
 
 const settingsSystemStore = useSettingsSystemStore()
 </script>
 
 <template>
   <a-layout style="min-height: 100vh">
-    <a-layout-sider v-model:collapsed="collapsed" collapsible theme="light">
+    <a-layout-sider v-model:collapsed="settingsSystemStore.collapsed" collapsible theme="light">
       <MainLogo name="大数据模拟生成器" />
       <MainMenu />
     </a-layout-sider>
